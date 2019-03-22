@@ -26,6 +26,10 @@ def main():
     policy = Policy.initialize()
     return json.dumps(policy.handle(req, settings.vi)).encode('utf-8')
 
+@app.route('/syn', methods=['GET'])
+def syn_test():
+    return "syn"
+
 
 def _usage():
     print(f"Usage: alexa-listener.py"

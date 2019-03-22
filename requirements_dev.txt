@@ -5,5 +5,4 @@ livereload==2.5.1
 transitions==0.5.0
 voicelabs==0.0.10
 pytest==3.0.6
-pygraphviz
 boto3==1.4.4
