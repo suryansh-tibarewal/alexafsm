@@ -24,7 +24,12 @@ port = 8888
 def main():
     req = flask_request.json
     policy = Policy.initialize()
-    return json.dumps(policy.handle(req, settings.vi)).encode('utf-8')
+    val = policy.handle(req)
+    print(val)
+    print("helloo")
+    resp = json.dumps(val.to_json()).encode('utf-8')
+    print(resp)
+    return resp
 
 @app.route('/syn', methods=['GET'])
 def syn_test():

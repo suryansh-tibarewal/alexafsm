@@ -93,17 +93,16 @@ class Policy:
 
         if request_type == 'LaunchRequest':
             resp = self.get_current_state_response()
+            resp = resp._replace(session_attributes={})
         elif request_type == 'IntentRequest':
             intent = req['intent']
             self.states.attributes = type(self.states.attributes).from_request(request)
             self.state = self.attributes.state
             resp = self.execute()
-            resp = resp._replace(session_attributes=self.states.attributes)
-            if voice_insights:
-                voice_insights.track(intent_name=intent['name'], intent_request=req,
-                                     response=resp.to_json())
+            resp = resp._replace(session_attributes=self.states.attributes.to_json())
         elif request_type == 'SessionEndedRequest':
             resp = response.end(self.states.skill_name)
+            resp = resp._replace(session_attributes=self.states.attributes.to_json())
         else:
             raise Exception(f'Unknown request type {request_type}')
 
